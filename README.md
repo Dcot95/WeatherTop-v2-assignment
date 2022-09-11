@@ -1,5 +1,3 @@
-README.md
-
 Name: David Cotter
 Student Number: W20062924
 
