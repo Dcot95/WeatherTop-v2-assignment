@@ -1,13 +1,12 @@
+"use strict";
 
-'use strict';
-
-const _ = require('lodash');
-const JsonStore = require('./json-store');
+const _ = require("lodash");
+const JsonStore = require("./json-store");
 
 const userStore = {
 
-  store: new JsonStore('./models/user-store.json', { users: [] }),
-  collection: 'users',
+  store: new JsonStore("./models/user-store.json", { users: [] }),
+  collection: "users",
 
   getAllUsers() {
     return this.store.findAll(this.collection);
@@ -24,7 +23,7 @@ const userStore = {
 
   getUserByEmail(email) {
     return this.store.findOneBy(this.collection, { email: email });
-  },
+  }
 };
 
 module.exports = userStore;

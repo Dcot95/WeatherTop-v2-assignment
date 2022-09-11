@@ -1,10 +1,9 @@
-
 "use strict";
 
 const logger = require("../utils/logger");
 const stationStore = require("../models/station-store");
-const uuid = require('uuid');
-const stationCollection= require("../models/station-store.json").stationCollection;
+const uuid = require("uuid");
+const stationCollection = require("../models/station-store.json").stationCollection;
 
 
 const stationAnalytics = {
@@ -14,8 +13,7 @@ const stationAnalytics = {
     let latestReading = null;
     if (station.readings.length > 0) {
       latestReading = station.readings[station.readings.length - 1];
-    }
-    else{
+    } else {
       return latestReading;
     }
     return latestReading;
@@ -43,9 +41,9 @@ const stationAnalytics = {
     return "Unknown";
   },
 
-  getConvertToFarenheit(temperature){
-    if(temperature>=0){
-      return ((temperature*9/5)+32);
+  getConvertToFarenheit(temperature) {
+    if (temperature >= 0) {
+      return ((temperature * 9 / 5) + 32);
     }
   },
   getBeaufortConvert(windSpeed) {
@@ -112,9 +110,9 @@ const stationAnalytics = {
     }
     return "Incorrect Wind Direction";
   },
-  getWindChill(temperature,windSpeed) {
-    return (13.12 + (0.6215 * (temperature)) - (11.37 * (Math.pow(windSpeed,0.16))) + ((0.3965 * (temperature)) * (Math.pow(windSpeed,0.16))));
-  },
+  getWindChill(temperature, windSpeed) {
+    return (13.12 + (0.6215 * (temperature)) - (11.37 * (Math.pow(windSpeed, 0.16))) + ((0.3965 * (temperature)) * (Math.pow(windSpeed, 0.16))));
+  }
 
 
 };

@@ -1,10 +1,9 @@
-
 "use strict";
 
 const logger = require("../utils/logger");
 const stationStore = require("../models/station-store");
-const uuid = require('uuid');
-const accounts = require ('./accounts.js');
+const uuid = require("uuid");
+const accounts = require("./accounts.js");
 
 const dashboard = {
   index(request, response) {
@@ -12,7 +11,7 @@ const dashboard = {
     const loggedInUser = accounts.getCurrentUser(request);
     const viewData = {
       title: "Station Dashboard",
-      stations: stationStore.getUserStations(loggedInUser.id),
+      stations: stationStore.getUserStations(loggedInUser.id)
     };
     logger.info("about to render", stationStore.getAllStations());
     response.render("dashboard", viewData);
@@ -21,7 +20,7 @@ const dashboard = {
     const stationId = request.params.id;
     logger.debug(`Deleting Playlist ${stationId}`);
     stationStore.removeStation(stationId);
-    response.redirect('/dashboard');
+    response.redirect("/dashboard");
   },
   addStation(request, response) {
     const loggedInUser = accounts.getCurrentUser(request);
@@ -31,12 +30,12 @@ const dashboard = {
       name: request.body.name,
       lat: request.body.lat,
       lng: request.body.lng,
-      readings: [],
+      readings: []
     };
-    logger.debug('Creating a new Station', newStation);
+    logger.debug("Creating a new Station", newStation);
     stationStore.addStation(newStation);
-    response.redirect('/dashboard');
-  },
+    response.redirect("/dashboard");
+  }
 };
 
 module.exports = dashboard;

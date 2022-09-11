@@ -1,10 +1,9 @@
-
 "use strict";
 
 const logger = require("../utils/logger");
 const stationStore = require("../models/station-store");
-const uuid = require('uuid');
-const stationAnalytics=require("../utils/station-analytics");
+const uuid = require("uuid");
+const stationAnalytics = require("../utils/station-analytics");
 const { read } = require("fs-extra");
 
 const station = {
@@ -12,18 +11,18 @@ const station = {
     const stationId = request.params.id;
     logger.debug("Station id = ", stationId);
 
-    const station= stationStore.getStation(stationId)
-    const latestReading= stationAnalytics.getLatestReading(station);
+    const station = stationStore.getStation(stationId);
+    const latestReading = stationAnalytics.getLatestReading(station);
     console.log(latestReading);
-    const weatherCode= stationAnalytics.getWeatherCode(Number(latestReading?.code));
+    const weatherCode = stationAnalytics.getWeatherCode(Number(latestReading?.code));
     console.log(weatherCode);
-    const convertToFarenheit= stationAnalytics.getConvertToFarenheit(latestReading?.temperature);
+    const convertToFarenheit = stationAnalytics.getConvertToFarenheit(latestReading?.temperature);
     console.log(convertToFarenheit);
-    const beaufortConvert= stationAnalytics.getBeaufortConvert(latestReading?.windSpeed);
+    const beaufortConvert = stationAnalytics.getBeaufortConvert(latestReading?.windSpeed);
     console.log(beaufortConvert);
-    const windCompass= stationAnalytics.getWindCompass(latestReading?.windDirection);
+    const windCompass = stationAnalytics.getWindCompass(latestReading?.windDirection);
     console.log(windCompass);
-    const windChill= stationAnalytics.getWindChill(Number(latestReading?.temperature.windSpeed));
+    const windChill = stationAnalytics.getWindChill(Number(latestReading?.temperature.windSpeed));
     console.log(windChill);
     const viewData = {
       title: "Station",
@@ -33,7 +32,7 @@ const station = {
       convertToFarenheit: convertToFarenheit,
       beaufortConvert: beaufortConvert,
       windCompass: windCompass,
-      windChill: windChill,
+      windChill: windChill
     };
     response.render("station", viewData);
   },
@@ -54,12 +53,12 @@ const station = {
       temperature: request.body.temperature,
       windSpeed: request.body.windSpeed,
       windDirection: request.body.windDirection,
-      pressure: request.body.pressure,
+      pressure: request.body.pressure
     };
-    logger.debug('New Reading = ', newReading);
+    logger.debug("New Reading = ", newReading);
     stationStore.addReading(stationId, newReading);
-    response.redirect('/station/' + stationId);
-  },
+    response.redirect("/station/" + stationId);
+  }
 };
 
 module.exports = station;
